@@ -1,7 +1,37 @@
+// 수행결과는 task 2 -> task 1 순서 임.
+// 수행 단계에서 수행됨.
 task gTask1<<{
  println 'This is Gradle Task One'
 }
-
+// 설정 단계에서 수행됨
+/* 
 task gTask2{
  println 'This is Gradle Task Two'
+}
+*/
+
+// 태스트 속성 변경
+task goodTask << {
+  println description + '이것이 목적임.'
+}
+//description 기본 속성임.
+goodTask.description = 'Task 실행->'
+
+// 태스크 선언
+task prevTask
+prevTask.description = '< 타스크 실행 >'
+
+prevTask << {
+  println description + "이것은 행운이야!"
+}
+
+//태스크를 활용한 다양한 실습#1
+task exeTask1 << {
+  String strOutput = 'Have a Good Day!'
+  println '1. String change :' + strOutput.toUpperCase()
+  println '2. String change :' + strOutput.toLowerCase()
+}
+
+task exeTask2 << {
+  10.times {println "$it"}
 }
