@@ -9,8 +9,21 @@ task hello<<{
 	clos_.call('cosmoslight')
 	clos_('huni')
 	clos_ 'yuni'
+
 }
 
 task hello2<<{
+	//시스템 속성 사용하기
 	println System.properties['message']
+	println email 
+}
+//확장 속성 사용하기
+ext{
+	extPro1 = 'pro1'
+	extPro2 = 'pro2'
+}
+task extvar<<{
+	//사용방법
+	println "속성값1 : "+ext.extPro1
+	//println "속성값2 : ${ext.extPro2}"
 }
