@@ -1,0 +1,7 @@
+task gTask1<<{
+ println 'This is Gradle Task One'
+}
+
+task gTask2{
+ println 'This is Gradle Task Two'
+}
