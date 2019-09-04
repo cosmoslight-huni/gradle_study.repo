@@ -1,0 +1,12 @@
+task hello{
+// task hello << {   //원래 코드
+	println "Hello Gradle!"
+	def id = 'wow'
+	println id.toUpperCase()
+	println "My ID = ${id}"
+
+	def clos_  = {closer -> println "id, $closer"}
+	clos_.call('cosmoslight')
+	clos_('huni')
+	clos_ 'yuni'
+}
