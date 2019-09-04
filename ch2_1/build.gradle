@@ -1,4 +1,4 @@
-task hello{
+task hello<<{
 // task hello << {   //원래 코드
 	println "Hello Gradle!"
 	def id = 'wow'
@@ -9,4 +9,8 @@ task hello{
 	clos_.call('cosmoslight')
 	clos_('huni')
 	clos_ 'yuni'
+}
+
+task hello2<<{
+	println System.properties['message']
 }
