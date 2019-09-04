@@ -2,3 +2,11 @@
 task hello<<{
   println msg
 }
+
+// 출력할 문자열의 def 형으로 선언 및 클로저 정의
+def strMsg = { println 'Hello Gradle!' }
+
+// hello2 task
+task hello2 {}
+
+hello2.leftShift(strMsg)
