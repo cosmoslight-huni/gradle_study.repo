@@ -35,3 +35,106 @@ task exeTask1 << {
 task exeTask2 << {
   10.times {println "$it"}
 }
+
+3.times{counter -> 
+  // 자동으로 태스크 생성
+  task "fTask$counter"<<{
+    println "task counter : $counter"
+  }
+}
+// 타스크 의존성 설정
+fTask1.dependsOn fTask0,fTask2
+
+// 파라미터를 설정하면서 태스크 설정
+
+task expTask (description: "이것은 그래이들 설명임.") << {
+  println description
+}
+
+// 태스크 실행 순서 
+
+task e1Task << {
+  println '     e1Task 수행'
+}
+
+e1Task.doFirst {
+  println '>>>  e1Task 수행 전 동작'
+}
+
+e1Task.doLast {
+  println ">>>  e1Task 수행 후 동작 - END : ${e1Task.name}"
+}
+
+// 속성 지정 - ext는 특별한 객체임.
+task userInfo {
+  ext.userName = "후니"
+  ext.userAge = "40"
+  ext.userGen = "Man"
+}
+
+task readUserInfo << {
+  println "이름 : " + userInfo.userName
+  println "나이 : " + userInfo.userAge
+  println "성별 : " + (userInfo.userGen == "Man" ? "남자" : "여자")
+}
+
+//기본 수행될 task를 지정 함.
+defaultTasks 'readUserInfo', 'fTask1'
+
+//맵을 사용하여 task 생성
+def cmap = [imgx:'img.free.co.kr', imgy:'yun.free.co.kr']
+
+cmap.each{
+  k,v -> task "e${k}" << {
+    println "value = ${v}"
+  }
+}
+
+//조건에 따른 빌드
+task succTask << {
+  println "Gradle 빌드 성공!!!"
+}
+// 다음 속성이 있는 경우
+succTask.onlyIf{
+  buildType == 'partial-build'
+}
+
+//성공적인 수행은 #gradle -P buildType=partial-build succTask
+
+//오류 발생 시 예외 처리 하기
+task errTask << {
+  println "errTask 빌드 성공"
+}
+
+errTask << {
+  if(process == 'error')
+    throw new StopExecutionException()
+}
+
+errTask << {
+  println '-- 빌드 종료 --'
+}
+//gradle -P process=ok errTask
+
+
+// 실행 순서 제어 #1
+task eTaskBefore << {
+  println 'eTaskBefore ---- 1'
+}
+
+task eTaskAfter << {
+  println 'eTaskAfter  ---- 2'
+}
+// 두개의 task 두굴 먼저 수행 해도 eTaskBefore 먼저 수행 됨.
+eTaskAfter.mustRunAfter eTaskBefore
+
+// 실행 순서 제어 #2
+task eTaskBefore2 << {
+  println 'eTaskBefore2 ---- 1'
+}
+
+task eTaskAfter2 << {
+  println 'eTaskAfter2  ---- 2'
+}
+// 두개의 task 두굴 먼저 수행 해도 eTaskBefore 먼저 수행 됨.
+eTaskAfter2.shouldRunAfter eTaskBefore2
