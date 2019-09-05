@@ -1,0 +1,10 @@
+
+gradle.allprojects{
+	project -> 
+		project.beforeEvaluate{
+			println project.name + ' : 검사 시작'
+		}
+		project.afterEvaluate{
+			println project.name + ' : 검사 종료'
+		}
+}

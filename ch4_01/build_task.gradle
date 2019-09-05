@@ -1,0 +1,29 @@
+task exeTask << {
+	println 'exeTask name        : ' + name
+	println 'exeTask path        : ' + path
+	println 'exeTask description : ' + description
+	println 'exeTask group       : ' + group
+}
+
+exeTask.group '타스크 객체'
+//exeTask.group = 'Task Object'
+
+exeTask.description = '타스크 객체 스크립트 코드'
+//exeTask.description '타스크 객체 스크립트 코드'
+
+task exeAnoTask << {
+	println '의존 Task(타스크)'
+}
+
+exeTask.dependsOn(exeAnoTask)
+
+
+exeTask.doFirst {
+	println 'Task 시작 ----->>'
+}
+
+exeTask.doLast {
+	println '<<------  Task 종료'
+}
+
+exeTask.deleteAllActions()

@@ -1,0 +1,41 @@
+class TaskExecutionListenerImp implements TaskExecutionListener {
+	void beforeExecute(Task task){
+		println "beforeExecute : ${task.name}"
+	}
+
+	void afterExecute(Task task, TaskState state){
+		println "afterExecute : ${task.name}, ${state.getDidWork()}"
+	}
+}
+
+// TaskExecutionListener를 구현한 TaskExecutionListenerImp를
+// Gradle의 이벤트 리스너를 이용하여 Gradle에 추가 
+gradle.addListener(new TaskExecutionListenerImp())
+
+// 수행 방법
+// # gradle -q -I init.gradle help
+
+// Gradle 객체의 API 추가
+settingsEvaluated{
+	println '1 - settingsEvaluated() API'	
+}
+
+projectsLoaded({
+	println '2 - projectsLoaded()    API'
+})
+
+beforeProject {
+	println '3 - beforeProject()     API'
+}
+
+afterProject {
+	println '4 - afterProject()      API'
+}
+
+projectsEvaluated {
+	println '5 - projectsEvaluated() API'
+}
+
+buildFinished {
+	println '6 - buildFinished()     API'
+}

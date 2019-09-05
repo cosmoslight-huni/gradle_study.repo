@@ -1,0 +1,11 @@
+
+task exeTask
+exeTask.leftShift {
+	println '------ Gradle 인스턴스 속성 ------'
+	println "1.gradleHomeDir     : ${gradle.gradleHomeDir}"
+	println "2.gradleUserHomeDir : ${gradle.gradleUserHomeDir}"
+	println "3.gradleVersion     : ${gradle.gradleVersion}"
+	println "4.rootProject       : ${gradle.rootProject}"
+	println "5.startParameter    : ${gradle.startParameter}"
+	println "6.taskGraph         : ${gradle.taskGraph}"
+}
