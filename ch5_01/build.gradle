@@ -1,0 +1,28 @@
+import java.util.concurrent.Callable
+
+File refFile1 = file('../ch4_01/init.gradle')
+File refFile2 = file(new File('../ch4_01/settings.gradle'))
+
+// Closer 이용 방법 
+File refFile3 = file{'src/java/refJavaFile.java'}
+
+// URI Object 이용하는 방법
+File refFile4 = file(new URI('file:/src/refExeFile.txt'))
+
+//URL Object
+File urlRef = file(new URL('file:/urlRef.html'))
+
+//Callable 인터페이스
+File callRef = file(new Callable<String>(){
+		String call(){ '/refExe2.java' }
+	}, PathValidation.FILE)
+
+task exeTask << {
+	println "init.gradle       File Path : ${refFile1.absolutePath}"
+	println "settings.gradle   File Path : ${refFile2.absolutePath}"
+	println "refJavaFile.java  File Path : ${refFile3.absolutePath}"
+	println "refExeFile.txt    File Path : ${refFile4.absolutePath}"
+	println "urlRef.html       File Path : ${urlRef.absolutePath}"
+	println "refExe.java       File Path : ${callRef.absolutePath}"
+
+}
