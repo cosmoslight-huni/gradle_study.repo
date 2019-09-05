@@ -1,0 +1,11 @@
+task FirstExeTask << {
+	println 'FirstExeTask gradle task'
+}
+
+task SecondExeTask(dependsOn: 'FirstExeTask') << {
+	println 'SecondExeTask gradle task'
+}
+
+task ThirdExeTask(dependsOn: 'SecondExeTask') << {
+	println 'ThirdExeTask gradle task'
+}
