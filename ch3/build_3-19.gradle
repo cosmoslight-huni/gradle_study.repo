@@ -1,5 +1,10 @@
-task FirstExeTask << {
+task FirstExeTask(description: '이것은 최초 태스크 임.') << {
 	println 'FirstExeTask gradle task'
+}
+
+// 첫번째 태스크에 예외 발생을 강제적으로 넣어서 다음 동작을 수행 하지 않도록 한다.
+FirstExeTask << {
+	throw new Exception('강제적으로 예외를 발생 시켜서 중단 됨.')
 }
 
 task SecondExeTask(dependsOn: 'FirstExeTask') << {
@@ -7,5 +12,13 @@ task SecondExeTask(dependsOn: 'FirstExeTask') << {
 }
 
 task ThirdExeTask(dependsOn: 'SecondExeTask') << {
-	println 'ThirdExeTask gradle task'
+	println "ThirdExeTask gradle task"
 }
+
+
+// 종료 태스크를 추가 함.
+task finishTask << {
+	println 'memory 삭제'
+}
+
+FirstExeTask.finalizedBy finishTask
