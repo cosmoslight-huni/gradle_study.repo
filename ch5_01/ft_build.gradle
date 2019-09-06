@@ -1,0 +1,78 @@
+task ftexe01 << {
+	FileTree ft = project.fileTree('settings')
+	ft.each{
+		println "filename : ${it.name}, path : ${it.path}"
+	}
+}
+
+
+// 클로저를 이용한 FileTree 객체 생성
+task ftexe02 << {
+	FileTree ft = project.fileTree('src'){
+		include '**/*.java'
+	}
+
+	//src 디렉토리를 기준으로 참조중인 파일 내용 출력
+	ft.each{
+		println "1. filetree name(include) : ${it.name}"
+	}
+
+	println "---------------------------------"
+
+	//src 디렉토리를 기준으로 특정 파일 제외
+	ft = fileTree('src'){
+		exclude "**/file*.java","**/*.txt"
+	}
+
+	//src 디렉토리를 기준으로 참조중인 파일 내용 출력
+	ft.each{
+		println "2. filetree name(exclude) : ${it.name}"
+	}
+}
+
+//Map을 이용한 FileTree 객체 생성
+task ftexe03 << {
+	FileTree ft = fileTree(dir:'src' , include:'**/*.java', 
+		exclude:'**/action????.java')
+
+	println "create FileTree using <map>"
+	println "---------------------------------"
+	int cnt
+	ft.each{
+		println "${cnt++}.filetree name : ${it.name}"
+	}
+}
+
+// matching()
+task ftexe04 << {
+	FileTree ft = fileTree('src')
+	FileTree ftm1 = ft.matching{
+		include '**/*.java'
+	}
+	def cnt = 0
+	ftm1.each{
+		println "1. filename(${cnt++}) : ${it.name}"
+	}
+	cnt = 0
+	FileTree fmt2 = ft.matching{
+		exclude '**/file*.java', '**/*.txt'
+	}
+	println "---------------------------------"
+	fmt2.each{
+		println "2. filename(${cnt++}) : ${it.name}"
+	}
+}
+
+// visit , isDirectory
+task ftexe05 << {
+	FileTree ft = fileTree('src')
+	int cnt = 1
+	ft.visit{
+		fd ->
+			println "${cnt}. visit filename : ${fd.getName()}"
+			println "${cnt++}. isDirectory(${fd.isDirectory()?"YES":"NO"}) : ${fd.path} , size : ${fd.getSize()}"
+			println "---------------------------------"
+	}
+
+
+}
