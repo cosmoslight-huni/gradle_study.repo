@@ -4,7 +4,8 @@ class TaskExecutionListenerImp implements TaskExecutionListener {
 	}
 
 	void afterExecute(Task task, TaskState state){
-		println "afterExecute : ${task.name}, ${state.getDidWork()}"
+		if(state.getExecuted())
+			println "afterExecute : ${task.name}, ${state.getDidWork()}"
 	}
 }
 
