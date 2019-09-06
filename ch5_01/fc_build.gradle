@@ -1,0 +1,158 @@
+// FileCollection 예제
+task fcexe00 << {
+	FileCollection fc = files('index.txt', 'intro.txt')
+
+	println "collection files[0] : ${fc[0].path}"
+	println "collection files[1] : ${fc[1].path}"
+
+	fc.each{
+		println "${it.name} : ${it.path}"
+	}
+}
+
+// 일반 형식
+task fcexe01 << {
+	FileCollection fc = files('index.txt', new File('intro.txt'), new URL('file:/web.html')
+		, new URI('file:/log.xml'))
+
+	fc.each{
+		println "${it.name} : ${it.path}"
+	}
+}
+
+// 리스트형 지정
+task fcexe02 << {
+	List fileList = [new File('intro.txt'), new File('index.txt'), new File('log.txt')]
+	FileCollection fc1 = files(fileList)
+
+	fc1.each{
+		println "file List 1 = ${it.name} : ${it.path}"
+	}
+	println "=============================="
+	//배열로 지정
+	FileCollection fc2 = files(fileList as File[])
+	fc2.each{
+		println "file List 2 = ${it.name} : ${it.path}"
+	}
+}
+
+
+// 형 변환
+task fcexe03 << {
+	//파일 컬렉션으로 변환
+	FileCollection fc = files('settings.txt', new File('intro.txt'), new File('index.txt'), new File('logs.txt'))
+
+	//List 형으로 변환 
+	List flist = fc as List
+
+	flist.each {
+		println "List Collection : ${it.path}"
+	}
+	println "=============================="
+	// Set 형으로 변환 
+	Set fset = fc as Set
+	fset.each {
+		println "Set Collection : ${it.path}"
+	}
+	println "=============================="
+	// 배열로 변환
+	File[] farray = fc as File[]
+	farray.each {
+		println "Array Collection : ${it.path}"
+	}
+}
+
+// 덧셈 연산자
+task fcexe04 << {
+	FileCollection fc1 = files('log.txt') + files('oks.txt')
+	FileCollection fc2 = fc1 + files('tmp.txt')
+	FileCollection fc3 = fc1 + fc2  //중복된 내용이 하나로 표시 되므로 set와 같은 형태 이므로
+
+	println "FileCollection1 size : ${fc1.size()}"	
+	println "FileCollection2 size : ${fc2.size()}"	
+	println "FileCollection3 size : ${fc3.size()}"	
+	println "=============================="
+	fc1.each{
+		println "FileCollection1 : ${it.path}"
+	}
+	println "=============================="
+	fc2.each{
+		println "FileCollection2 : ${it.path}"
+	}
+	println "=============================="
+	fc3.each{
+		println "FileCollection3 : ${it.path}"
+	}
+}
+
+//뺄셈 연산자
+task fcexe05 << {
+	FileCollection fc1 = files('log.txt', 'tmp.txt')
+	FileCollection fc2 = fc1 - files('tmp.txt')
+
+	println "FileCollection1 size : ${fc1.size()}"	
+	println "FileCollection2 size : ${fc2.size()}"	
+	println "=============================="
+	fc1.each{
+		println "FileCollection1 : ${it.path}"
+	}
+	println "=============================="
+	fc2.each{
+		println "FileCollection2 : ${it.path}"
+	}
+}
+
+//필터링
+task fcexe06 << {
+	FileCollection fc = files('settings.txt', 'login.txt', 'intro.java', 'index.html', 'log.txt')
+
+	println "Files size : ${fc.files.size()}"	
+	println "=============================="
+
+	//텍스트 파일에 대한 필터링 (제외 , 포함)
+	FileCollection fctxt = fc.filter{
+		cf -> cf.name.endsWith('.txt')
+	}
+
+	println "Text Filter size : ${fctxt.files.size()}"	
+	println "=============================="
+
+	// 필터링된 파일 출력
+	fctxt.each{
+		println "Text Filter File : ${it.name} -> ${it.path}"
+	}
+}
+
+// 파일 경로 출력
+task fcexe07 << {
+	FileCollection fc = files('settings.txt', 'login.txt', 'intro.java', 'index.html', 'log.txt')
+
+	// 참조하는 파일의 경로 출력 getAsPath()
+	println "1. getAsPath() : ${fc.getAsPath()}"	
+	println "2. asPath      : ${fc.asPath}"	
+
+	// isEmpty()
+	if(fc.isEmpty()){
+		println "3. isEmpty ----"
+	}else{
+		println "4. is not isEmpty ----"
+		// fileCollection 객체에서 참조 중인 파일 제거
+		fc = fc - files('settings.txt', 'login.txt', 'intro.java', 'index.html')
+		// 제거 후 파일 경로 출력
+		println "5. fc getAsPath() : ${fc.getAsPath()}"
+	}
+
+	// contains()
+	File onefile = file(new File('log.txt'))
+	// File 객체에 지정된 파일의 존재 여부를 contains()로 확인
+	if(fc.contains(onefile)){
+		println "6. File is contains"
+	}else{
+		println "7. File is not contains"
+	}
+
+	//stopExecutionIfEmpty()를 이용하여 빈 FileCollection에 대한 예외 발생
+	FileCollection emptyFc = null
+	emptyFc.stopExecutionIfEmpty()
+
+}
