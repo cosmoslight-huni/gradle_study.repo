@@ -1,0 +1,25 @@
+repositories { 
+   ivy { 
+     url "../" 
+     //저장소 디렉토리 구종 정의
+     layout 'pattern' , { 
+       artifact '[organisation]/[module]/[artifact]-[revision](.[ext])' 
+       ivy '[organisation]/[module]/ivy.xml' 
+       m2compatible =true
+     } 
+    } 
+ } 
+ 
+ configurations { 
+   compile 
+ } 
+ 
+ dependencies { 
+   compile group: '6_9', name: 'ivy', version: '1.0', configuration: "conf1"
+} 
+ 
+ task exeTask << { 
+   configurations.compile.each { 
+     println it.absolutePath 
+   } 
+ } 

@@ -1,0 +1,41 @@
+group = 'confRef'
+version = "1.0"
+
+//저장소 정의
+repositories {
+	mavenCentral()
+	//maven{
+	//	url "http://repo1.maven.org/maven2"
+	//	artifactUrls "http://repo1.maven.org/maven2/jars"
+	//}
+	//mavenLocal()
+	jenter()  // https://jcenter.bintray.com
+}
+
+//환경 구성 정의
+configurations {
+	confDef
+	// 환경 구성 상속
+	newconfdef.extendsFrom confDef
+}
+
+configurations.newconfdef {
+	resolutionStrategy{
+		//버젼이 충돌이 발생 했을 경우
+		failOnVersionConflict()
+		//버전 사용을 강제적 지정 부분
+		force 'org.codehaus.Groovy:Groovy-all:2.3.1'
+	}
+}
+
+//의존 관계 지정
+dependencies {
+	confDef(group:'org.codehaus.groovy', name:'groovy-all', version:'2.3.1')
+	newconfdef(group:'junit', name:'junit', version:'4.11')
+}
+
+task exeTask << {
+	configurations.newconfdef.each {
+		println it.absolutePath
+	}
+}

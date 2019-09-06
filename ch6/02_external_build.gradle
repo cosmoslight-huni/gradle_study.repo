@@ -1,0 +1,24 @@
+//환경 구성 정의
+configurations {
+	conf1
+}
+
+//저장소 정의
+repositories {
+	mavenCentral()
+}
+
+// 의존 관계 정의
+dependencies {
+	//외부 모듈 의존 지정
+	conf1 'ch.qos.logback:logback-classic:1.0.13'
+	conf1 'org.springframework:spring-orm:4.0.2.RELEASE'
+	conf1 (group:'org.gradle.api.plugins', name:'gradle-cargo-plugin', version:'0.6.1')
+}
+
+
+task exeTask << {
+	configurations.conf1.each{
+		println it.absolutePath
+	}
+}

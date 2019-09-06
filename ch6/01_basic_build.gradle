@@ -1,0 +1,16 @@
+// build를 위한 환경 구성/환경 설정
+configurations { 
+   confx
+} 
+
+// 의존관계 정의
+dependencies { 
+  confx gradleApi() // 의존관계 지정 
+} 
+
+task exeTask << { 
+   // 설정된 환경 구성을 사용
+   configurations.confx.each { 
+     println it.absolutePath 
+   } 
+} 

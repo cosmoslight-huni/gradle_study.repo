@@ -1,0 +1,18 @@
+//환경 구성 정의
+configurations {
+	conf1
+}
+
+
+//의존관계 정의
+dependencies {
+	//project 의존 관계
+	compile project(':subProject')
+	conf1 'ch.qos.logback:logback-classic:1.0.13'
+}
+
+task exeTask << {
+	configurations.conf1.each{
+		println it.absolutePath
+	}
+}
