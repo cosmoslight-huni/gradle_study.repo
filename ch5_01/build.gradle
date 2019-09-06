@@ -16,7 +16,8 @@ File urlRef = file(new URL('file:/urlRef.html'))
 File callRef = file(new Callable<String>(){
 		String call(){ '/refExe2.java' }
 	}, PathValidation.FILE)
-
+// 디렉토리 존재 여부 확인
+File checkFile = file('src/x', PathValidation.DIRECTORY)
 task exeTask << {
 	println "init.gradle       File Path : ${refFile1.absolutePath}"
 	println "settings.gradle   File Path : ${refFile2.absolutePath}"
@@ -24,5 +25,6 @@ task exeTask << {
 	println "refExeFile.txt    File Path : ${refFile4.absolutePath}"
 	println "urlRef.html       File Path : ${urlRef.absolutePath}"
 	println "refExe.java       File Path : ${callRef.absolutePath}"
+	println "src/java          Dir  Path : ${checkFile.absolutePath}"
 
 }
