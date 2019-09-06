@@ -25,6 +25,7 @@ task exeTask001<<{
 
 task exeTask002<<{
 	println project.description
+//  잘동작하지 않는다.
 //	project.ext.set('add_value','value is gradle')
 
 //	if(project.ext.has('add_value'))
