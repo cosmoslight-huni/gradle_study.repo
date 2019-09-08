@@ -1,0 +1,21 @@
+// 지정 하기 (gradle 파일)
+apply from: 'EnvDir/dev/conf.gradle'
+apply from: 'EnvDir/mid/conf.gradle'
+apply from: 'EnvDir/prod/conf.gradle'
+
+task exeTask << {
+	//개발 환경
+ 	println "****************Dev Environments********************" 
+  println "Server IP : ${server_dev_ip}" 
+  println "Domain Name : ${domain_dev_nm}"
+
+  //검증 환경
+ 	println "****************Mid Environments********************" 
+  println "Server IP : ${server_mid_ip}" 
+  println "Domain Name : ${domain_mid_nm}"
+
+  //운영 환경
+ 	println "****************Prod Environments********************" 
+  println "Server IP : ${server_prod_ip}" 
+  println "Domain Name : ${domain_prod_nm}"
+}

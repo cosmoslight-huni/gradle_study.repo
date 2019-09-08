@@ -1,0 +1,22 @@
+task exeTask << {
+	//개발 환경
+	def dev = new Properties()
+	dev.load(new FileInputStream("EnvDir/dev/conf.properties"))
+ 	println "****************Dev Environments********************" 
+  	println "Server IP : ${dev.server_ip}" 
+  	println "Domain Name : ${dev.domain_nm}"
+
+  	//검증 환경
+	def mid = new Properties()
+	mid.load(new FileInputStream("EnvDir/mid/conf.properties"))
+ 	println "****************Mid Environments********************" 
+  	println "Server IP : ${mid.Server_ip}" 
+  	println "Domain Name : ${mid.domain_nm}"
+
+  	//운영 환경
+	def prod = new Properties()
+	prod.load(new FileInputStream("EnvDir/prod/conf.properties"))
+ 	println "****************Prod Environments********************" 
+  	println "Server IP : ${prod.server_ip}" 
+  	println "Domain Name : ${prod.domain_nm}"
+}

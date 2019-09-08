@@ -1,0 +1,14 @@
+environments {
+	dev {
+		server_ip = "10.1.1.151"
+		domain_nm = "https://dev.gradleTest.co.kr"
+	}
+	mid {
+		server_ip = "10.1.1.152"
+		domain_nm = "https://mid.gradleTest.co.kr"
+	}
+	prod {
+		server_ip = "10.1.1.153"
+		domain_nm = "https://prod.gradleTest.co.kr"
+	}
+}

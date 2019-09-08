@@ -1,0 +1,34 @@
+import org.gradle.api.tasks.testing.logging.*
+
+apply plugin : 'java'
+
+repositories{
+	mavenCentral()
+}
+
+dependencies {
+	testCompile 'junit:junit:4.8.2'
+}
+// 아래 설정을 하지 않으면 한글을 사용하여 오류가 발생한다.
+def defaultEncoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+
+test {
+	
+	testLogging {
+		events "FAILED" //"PASSED", "SKIPPED"//, "FAILED", "STANDARD_OUT", "STANDARDE_RROR"
+	}
+}
+
+
+task exeTask(type : Test){
+	reports.html.destination = file ("${reports.html.destination}/integration")
+	reports.junitXml.destination = file ("${reports.junitXml.destination}/integration")
+}
+
+task exeTest2 << {
+
+	TestLogEvent.values().each{
+		println it
+	}
+}
