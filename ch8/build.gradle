@@ -1,0 +1,203 @@
+task exeTask1(type: Zip){
+	// 압축 파일명 지정
+	baseName = "GradleZip1"
+	// 디렉토리 위치
+	into ("script") {
+		from ("src") {
+			// 생성 포함 파일
+			include "*.html", "*.js", "*.xml"
+		}
+	}
+}
+
+task exeTask2(type: Zip){
+	// 압축 파일명 지정 확장자 제외
+	baseName = "GradleZip2"
+
+	// 디렉토리 위치
+	into ("script") {
+		from("src") {
+			// 제외 파일 유형
+			exclude "*.js", '*.xml'
+		}
+	}
+
+	// 빈디렉토리 포함 여부 설정 , 기본값 false
+	includeEmptyDirs = true
+}
+
+// 파일
+task exeTask3(type : Zip) {
+	// 압축 파일명 지정
+	baseName = "GradleZip3"
+
+	// into 블록 제외
+	from("src") {
+		// 포함 파일 생성
+		include '*.js', '*.xml'
+	}
+
+	// 출력 정의
+	into("script1") {
+		from("src") {
+			exclude '*.js', '*.xml'
+		}
+	}
+
+	// 다른 출력 정의
+	into("script2") {
+		from('src') {
+			include '*.html'
+		}
+	}
+
+	includeEmptyDirs = true
+}
+
+task exeTask4(type : Zip) {
+	// 압축 파일명 지정
+	baseName = "GradleZip4"
+
+	// into 블록 제외
+	from('src'){
+		// 생성 포함 파일
+		include '*.html', '*.js', '*.xml'
+
+		// 파일명 변경
+		rename 'Gradle*', 'Script'
+	}
+}
+
+task exeTask5(type: Zip){
+	// 압축 파일명 지정
+	baseName = "GradleZip5"
+
+	// into 블록 제외
+	from('src') {
+		// 생성 포함 파일
+		include '*.html', '*.js', '*.xml'
+		// 파일 내용 변경
+		filter {
+			line -> line.replaceAll('Gradle', 'Change Gradle')	
+		}	
+	}
+
+}
+
+task exeTask6(type: Zip){
+	destinationDir 	= file('zip')
+	archiveName		= 'GradleZip6.zip'
+	appendix 		= 'file'
+	classifier		= 'Gradle'
+
+	from 'src'
+
+	includeEmptyDirs= true
+
+//	println "destinationDir   = $destinationDir"
+//	println "archiveName      = $archiveName"
+//	println "appendix         = $appendix"
+//	println "classifier       = $classifier"
+	//println "from 			  = $from"
+//	println "includeEmptyDirs = $includeEmptyDirs"
+}
+
+task exeTask7(type: Zip){
+	destinationDir 	= file('newzip')
+	baseName		= 'GradleZip7'
+	appendix 		= 'file'
+	classifier		= 'script'
+	version			= '1.0.0'
+
+	from 'src'
+
+	includeEmptyDirs= true
+
+	println "destinationDir   = $destinationDir"
+	println "baseName         = $baseName"
+	println "version          = $version"
+	println "archivePath      = $archivePath"
+}
+
+task exeTask8(type: Zip){
+	destinationDir	= file 'newzip'
+	baseName		= 'GradleZip8'
+	appendix		= 'file'
+	classifier		= 'script'
+	version			= '2.0.2'
+
+	from 'src'
+
+	includeEmptyDirs= true
+
+	entryCompression= ZipEntryCompression.STORED
+}
+
+task exeTask9(type: Tar){
+	destinationDir	= file 'newtar'
+	baseName		= 'GradleTar1'		
+	appendix		= 'file'
+	classifier		= 'script'
+	version			= '1.0.0'
+
+	from('src')
+
+	includeEmptyDirs= true
+
+	//압축방식 - zip 압축 파일 생성 때와 다름
+	compression 	= Compression.BZIP2
+	//Compression.NONE
+	//Compression.GZIP
+}
+
+version = 'Jar 1.0'
+task exeTask10(type: Jar){
+	destinationDir	= file 'newjar'
+	baseName		= 'GradleJar1'
+	appendix		= 'file'
+	classifier		= 'script'
+	version			= '1.0.0'
+
+	from 'src'
+
+	includeEmptyDirs= true
+
+	manifest {
+		attributes('Built-By':'Gradle', 'Implementation-Version': project.version)
+	}
+
+	entryCompression = ZipEntryCompression.STORED
+}
+
+version = 'War 1.0'
+task exeTask11(type: War){
+	destinationDir	= file 'newwar'
+	baseName		= 'GradleWar1'
+	appendix		= 'file'
+	classifier		= 'script'
+	version			= '1.0.0'
+	// web.xml 파일 생성 정의
+	// 현재 오류 발생 함.
+	// webXml 			= file('web.xml')
+	from 'src'
+
+	includeEmptyDirs= true
+
+	// jar에 대한 경로 지정
+	classpath fileTree('lib')	
+
+	// WEB-INF 정의
+	webInf {
+		into('classes'){
+			from('bin'){
+				include '**/*.class'
+			}
+		}
+	}
+
+
+	manifest {
+		attributes('Built-By': 'Gradle', 'Implementation-Version': project.version)
+	}	
+	entryCompression = ZipEntryCompression.STORED
+}

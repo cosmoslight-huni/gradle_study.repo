@@ -1,0 +1,40 @@
+apply plugin: 'ear'
+apply plugin: 'java'
+
+repositories {
+	mavenCentral()	
+}
+
+dependencies {
+	earlib('log4j:log4j:1.2.15:jar')
+}
+
+ear {
+  	destinationDir = file("newear")
+  	baseName = "Gradle"
+  	appendix = "file"
+  	classifier ="script"
+  	version = "1.0.0"	
+
+  	appDirName 'src'
+
+  	// 라이브러리 디렉토리 지정
+  	libDirName 'APP-INF/lib'
+
+  	// ear 압축 파일 관련 지정 (application.xml 내용)
+  	deploymentDescriptor {
+  		applicationName		= 'customer'
+  		initializeInOrder	= true
+  		displayName			= 'Custom Ear'
+
+  		description			= 'My custormized EAR for the Gradle documentation'
+
+  		securityRole 'admin'
+  		securityRole 'superadmin'
+
+  		withXml {
+  			provider -> provider.asNode().appendNode('data-source', 'src')
+  		}
+  	}
+
+}
