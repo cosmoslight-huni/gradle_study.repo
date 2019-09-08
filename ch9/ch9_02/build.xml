@@ -1,0 +1,5 @@
+<project>
+	<target name="antTask">
+		<echo>빌드 XML 의 ANT 타스크 </echo>
+	</target>
+</project>

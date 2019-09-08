@@ -1,0 +1,20 @@
+task exeTask {
+	doLast {
+		ant.echo('안녕 Ant!!')
+
+		ant.zip(destfile: 'archive.zip'){
+			fileset(dir:'src'){
+				exclude(name: '**.xml')
+				include(name: '**.java')
+			}
+		}
+
+		def path = ant.path {
+			fileset(dir:'src', includes: '*.java')
+		}
+
+		path.list().each{
+			print it
+		}
+	}
+}

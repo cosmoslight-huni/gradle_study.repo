@@ -1,0 +1,10 @@
+// ant 의 build.xml 파일 import
+ant.importBuild 'build.xml'
+
+// gradle 타스크 정의
+//task gradleTask(dependsOn: antTask){
+task gradleTask {
+	doLast {
+		println '이것은 Gradle 사용자 Task'
+	}
+}

@@ -1,0 +1,13 @@
+ant.importBuild 'build.xml'
+
+task exeTask(dependsOn: 'jar') {
+	println "ant version  : ${ant.properties.version}"
+	println "ant src      : ${ant.properties.src}"
+	println "ant build    : ${ant.properties.build}"
+	println "ant gradle   : ${ant.properties.gradle}"
+
+	// 속성값 설정
+	ant.properties.version = "2.0"
+
+	println "ant version 2: ${ant.properties.version}"
+}
