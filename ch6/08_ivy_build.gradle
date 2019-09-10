@@ -7,7 +7,12 @@ repositories {
        ivy '[organisation]/[module]/ivy.xml' 
        m2compatible =true
      } 
-    } 
+    }
+
+    //로컬 디렉토리 저장소 사용
+    flatDir{
+      dirs "local_lib","introHtml"  //로컬 디렉토리 지정
+    }
  } 
  
  configurations { 

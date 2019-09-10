@@ -1,0 +1,32 @@
+// 환경 구성 정의 
+configurations { 
+  confDef 
+} 
+
+// 저장소 정의
+repositories { 
+  mavenCentral() 
+  maven { 
+      url "http://repository.apache.org/content/groups/snapshots" 
+  } 
+} 
+
+// 변경성 모듈에 대한 캐시 간격 지정
+configurations.confDef.resolutionStrategy.cacheDynamicVersionsFor 1, 'minutes' 
+configurations.confDef.resolutionStrategy.cacheChangingModulesFor 5, 'hours' 
+ 
+// 의존관계 정의 
+dependencies { 
+   // 버전 중 최신 버전에 대한 지정
+   confDef 'org.slf4j:slf4j-api:1.+' 
+   // 출시 버전 중 최신 버전에 대한 지정
+   confDef 'commons-cli:commons-cli:latest.integration'
+   // 배포된 버전 중 최신 버전에 대한 지정 
+   confDef 'junit:junit:latest.release' 
+} 
+ 
+task exeTask << { 
+   configurations.confDef.each { 
+     println it.absolutePath 
+   } 
+} 

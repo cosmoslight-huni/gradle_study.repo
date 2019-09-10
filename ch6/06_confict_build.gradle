@@ -8,6 +8,8 @@ repositories {
 	//	url "http://repo1.maven.org/maven2"
 	//	artifactUrls "http://repo1.maven.org/maven2/jars"
 	//}
+	//메이븐 로컬 저장소
+	// USER_HOME/.m2/repository
 	//mavenLocal()
 	jenter()  // https://jcenter.bintray.com
 }
