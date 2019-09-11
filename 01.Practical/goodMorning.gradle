@@ -1,0 +1,7 @@
+task good << {
+	print '좋은 '
+}
+
+task morning(dependsOn: good) << {
+	println '아침~'
+}

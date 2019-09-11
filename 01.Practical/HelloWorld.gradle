@@ -1,0 +1,6 @@
+
+task HelloWorld{
+	doLast {
+		println "안녕 Gradle"
+	}
+}

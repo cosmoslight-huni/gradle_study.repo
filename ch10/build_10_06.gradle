@@ -1,0 +1,46 @@
+// 사용자 정의 타스크 
+task calcuTask(type: CalcuGradle) { 
+  msg = "Customer Task Test" 
+  printMsg(msg)
+  
+  a = 5
+  b = 10
+  
+  plus(a,b)
+  minus(a,b)
+  multi(a,b)
+  div(a,b)
+} 
+
+// 타스크 클래스 정의 
+class CalcuGradle extends DefaultTask { 
+  int a
+  int b
+  String msg
+  
+  CalcuGradle() { 
+    this << { 
+      println "Calcu Start , $msg!"  
+    } 
+  } 
+  
+  void printMsg(String str) { 
+	println "Alzio Contents : $str" 
+  } 
+  
+  void plus(int a, int b){
+  	println " a+b = " + (a+b)
+  }
+  
+  void minus(int a, int b){
+  	println " a-b = " + (a-b)
+  }  
+  
+  void multi(int a, int b){
+  	println " a*b = " + (a*b)
+  }  
+  
+  void div(int a, int b){
+  	println " a/b = " + (a/b)
+  }    
+} 

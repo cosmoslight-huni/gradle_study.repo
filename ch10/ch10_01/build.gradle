@@ -1,0 +1,43 @@
+//확장 객체를 사용
+ext {
+	num1 = 10
+	num2 = 40
+}
+
+
+//subProject 설정
+project(":subProject") {
+	ext {
+		num1 = 15
+		num2 = 20
+	}
+
+	task exeSubTask << {
+		println "Called Project Sub"
+		calPlus(num1, num3)
+		calMinus(num1, num3)
+		calMulti(num1, num3)
+		calDiv(num1, num3)
+	}
+}
+
+task exeTask << {
+	println "call Project MAIN"
+	calPlus(num1, num2)
+	calMinus(num1, num2)
+	calMulti(num1, num2)
+	calDiv(num1, num2)
+}
+//간단한 사칙연산 메서드
+void calPlus(def a, def b){
+	println "a + b = ${(a+b)}"
+}
+void calMinus(def a, def b){
+	println "a - b = "+ (a-b )
+}
+void calMulti(def a, def b){
+	println "a * b = ${(a * b)}"
+}
+void calDiv(def a, def b){
+	println "a / b = ${(a/b)}"
+}

@@ -1,0 +1,23 @@
+buildscript {
+	repositories {
+		jcenter()
+		//flatDir dir:'lib'
+	}
+
+	dependencies {
+		classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:0.+"
+		classpath "org.apache.commons:commons-lang3:3.+"
+		//classpath "com.gradle:graldeTask:1.0"
+	}
+}
+
+//플러그인
+apply plugin : 'com.jfrog.bintray'
+
+//외부 라이브러리를 사용할 수 있도록 import
+import org.apache.commons.lang3.StringUtils
+
+task exeTask << {
+	println StringUtils.replace("http://www.daum.net", '/', "x")
+	println StringUtils.removeEnd("http://www.daum.net", '/',)
+}

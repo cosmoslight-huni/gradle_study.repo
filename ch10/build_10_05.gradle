@@ -1,0 +1,9 @@
+// 외부 빌드 스크립트 사용 방법
+
+//사용하고자 하는 URL의 build.gradle 경로 지정
+apply from : "https://git.testGradle.com/gradle/graldeExe/build.gradle"
+
+//지정된 빌드 스크립의 태스크가 사용되도록 지정
+task exeTask(depnedsOn:"graldeExe") {
+	println "시험 Gradle class Method"
+}

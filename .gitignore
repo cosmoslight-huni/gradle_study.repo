@@ -11,3 +11,7 @@ ch8/build/
 ch9/ch9_01/.gradle/
 ch9/ch9_02/.gradle/
 ch9/ch9_04/.gradle/
+ch10/ch10_01/.gradle/
+ch10/ch10_02/.gradle/
+ch10/ch10_02/buildSrc/.gradle/
+ch10/ch10_02/buildSrc/build/

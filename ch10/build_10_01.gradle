@@ -1,0 +1,51 @@
+//클래스 정의
+class Domain{
+	String domain
+	String version
+}
+
+//메서드 정의
+void showContent(Domain domain){
+	println "This is $domain.domain"
+}
+
+
+//간단한 사칙연산 메서드
+int calPlus(def a, def b){
+	return a + b
+}
+
+int calMinus(def a, def b){
+	return a - b
+}
+
+int calMulti(def a, def b){
+	return a * b
+}
+
+int calDiv(def a, def b){
+	if( b != 0) return a / b
+	else return 0
+}
+
+task exeTask << {
+	//객체 생성을 통한 사용
+	final obj = new Domain(domain:"https://docs.gradle.org/current/dsl/")
+	showContent(obj)
+
+	//객체 생성 및 활용 - getter(), setter() 이용
+	def a = new Domain()
+	a.version = '0.1' 
+	println "version is ${a.getVersion()}"
+	a.setVersion('0.2')
+	println "version is ${a.version}"
+
+	//메서드 반환값 사용
+	def age1 = 30
+	def age2 = 40
+
+	println "age plus   = ${calPlus(age1,age2)}"
+	println "age minus  = ${calMinus(age1,age2)}"
+	println "age multi  = ${calMulti(age1,age2)}"
+	println "age div    = ${calDiv(age1,age2)}"
+}

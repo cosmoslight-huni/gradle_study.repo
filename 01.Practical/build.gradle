@@ -1,0 +1,15 @@
+task helloworld {
+	description = '이것은 HelloWorld'
+	println 'hello, world'
+}
+helloworld.doFirst {
+	println 'hello, huni'
+}
+
+helloworld.doLast {
+	println 'hello, yuni'
+}
+
+helloworld.doLast {
+	println 'last Samurai'
+}

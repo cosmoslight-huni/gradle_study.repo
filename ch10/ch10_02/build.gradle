@@ -1,0 +1,35 @@
+//암묵적으로 적용되고 있는 부분
+// 아래 부분을 해지 하면 오류가 발생한다.
+//apply plugin : "Groovy"
+
+//dependencies {
+//	compile gradleApi()
+//	compile localGroovy()
+//}
+
+task exeTask << { 
+	final num1 = new GradleGroovy(a: 100,b: 200)
+	final num2 = new GradleGroovy(b: 300) 
+	// 사칙연산
+	calcu(num1,num2) 
+	
+	// 문자열 출력 
+	final msg = new GradleGroovy(msg: "Msg is Hello") 
+	printMsg(msg)
+ 
+} 
+ 
+void calcu(GradleGroovy num1,GradleGroovy num2) { 
+	def a = Integer.parseInt("$num1.a")
+	def b = Integer.parseInt("$num1.b")
+	def c = Integer.parseInt("$num2.b")
+ 
+	println "plus result  =    " + (a+b+c)
+	println "minus result =    " + (a-b-c)
+	println "multi result =    " + (a*b*c)
+	println "div result   =    " + (a/b/c)
+} 
+
+void printMsg(GradleGroovy str){
+	println "$str.msg"
+}

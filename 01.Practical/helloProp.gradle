@@ -1,0 +1,7 @@
+task helloProp {
+	ext.myprop = '나의 속성'
+}
+
+task printTaskProp {
+	println helloProp.myprop
+} 

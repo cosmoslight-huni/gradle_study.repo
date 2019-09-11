@@ -1,0 +1,14 @@
+// 확장 객체 사용 
+ext {
+	num3 = 30
+}
+
+
+// subproject 태스크 - 루트프로젝트의 태스크 참조
+task exeTask(dependsOn:"exeSubTask") {
+	println "Child Project"
+	calPlus(num1, num2)
+	calMinus(num1, num2)
+	calMulti(num1, num2)
+	calDiv(num1, num2)
+}
