@@ -1,3 +1,3 @@
 # gradle_study.repo
 Gradle study
-## ÀÌ°Íµµ ½ÃÇè ÀÌ´Ù.
+## ì´ê²ƒì€ GIT ì‹œí—˜ ì…ë‹ˆë‹¤.
